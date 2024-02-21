@@ -18,6 +18,11 @@ Run application:
 
 ``` npm install ts-loader --save-dev```
 
+https://typescript-eslint.io/getting-started/
+
+``` npm i @typescript-eslint/eslint-plugin ```
+``` npm install --save-dev eslint typescript typescript-eslint ```
+
 
 ## dotenv-webpack
 dotenv-webpack переносит dotenv и Webpack.DefinePlugin. Таким образом, он выполняет замену текста в результирующем пакете для любых экземпляров process.env.
