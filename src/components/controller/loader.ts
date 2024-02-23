@@ -1,5 +1,12 @@
+enum HttpMethod {
+    GET = 'GET'
+}
+
 class Loader {
-    constructor(baseLink, options) {
+    private baseLink: string;
+    private options:  Record<string, string>;  // Времянка, переписать!
+
+    constructor(baseLink: string, options: Record<string, string>) {
         this.baseLink = baseLink;
         this.options = options;
     }
@@ -10,7 +17,7 @@ class Loader {
             console.error('No callback for GET response');
         }
     ) {
-        this.load('GET', endpoint, callback, options);
+        this.load(HttpMethod.GET, endpoint, callback, options);
     }
 
     errorHandler(res) {
@@ -23,7 +30,7 @@ class Loader {
         return res;
     }
 
-    makeUrl(options, endpoint) {
+    makeUrl(options: Record<string, string>, endpoint: string):string {
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
@@ -34,7 +41,11 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method, endpoint, callback, options = {}) {
+    private load(
+        method: HttpMethod, 
+        endpoint, 
+        callback, 
+        options = {}) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
