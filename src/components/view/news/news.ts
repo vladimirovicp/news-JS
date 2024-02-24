@@ -1,61 +1,47 @@
 import './news.css';
 
-interface NewsItem {
-    author: string | null;
-    source: {
-        name: string;
-    };
-    publishedAt: string;
-    urlToImage: string | null;
-    title: string;
-    description: string;
-    url: string;
-}
+import { NewsItem } from '../../miantypes';
 
 class News {
-    draw(data: NewsItem[]) {
-        const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
+    public draw(data: NewsItem[]): void {
 
-        const fragment = document.createDocumentFragment();
+        const news: NewsItem[] = data.length >= 10 ? data.filter((_item:NewsItem, idx: number) => idx < 10) : data;
+        const fragment: DocumentFragment = document.createDocumentFragment();
         const newsItemTemp = document.querySelector<HTMLTemplateElement>('#newsItemTemp');
 
-        if( newsItemTemp !== null){
+        // if( newsItemTemp !== null){
+        if( newsItemTemp){
             news.forEach((item, idx) => {
-                const newsClone = newsItemTemp.content.cloneNode(true);
+
+                const newsClone = newsItemTemp.content.cloneNode(true) as HTMLElement;
 
                 if(newsClone){
-                    if (idx % 2) (newsClone as HTMLElement).querySelector('.news__item')!.classList.add('alt');
+                    const newsItem = newsClone.querySelector('.news__item');
+                    if (idx % 2){
+                        newsItem!.classList.add('alt');
+                        newsItem!.classList.add('even');
+                    } else {
+                        newsItem!.classList.add('odd'); 
+                    }
                 }
-    
-                //ПОПРАВИТЬ!
 
-                // const testNewsClone: HTMLElement = newsItemTemp.content.cloneNode(true) as HTMLElement;
-                // if(testNewsClone){
-                //     const testIMG = testNewsClone.querySelector('.news__meta-photo') as HTMLElement;
-                //     if (testIMG) {
-                //         testIMG.style.backgroundImage = `url(${item.urlToImage || 'img/news_placeholder.jpg'})`;
-                //     }
-
-                // }
+                const newsMeta = newsClone.querySelector('.news__meta-photo') as HTMLElement;
+                if(newsMeta){
+                    newsMeta.style.backgroundImage = `url(${item.urlToImage || 'img/news_placeholder.jpg'})`;
+                }
 
 
-
-                ((<Element>newsClone).querySelector('.news__meta-photo') as HTMLElement).style.backgroundImage = `url(${
-                    item.urlToImage || 'img/news_placeholder.jpg'
-                })`;
-
-
-                (newsClone as HTMLElement).querySelector('.news__meta-author')!.textContent = item.author || item.source.name;
-                (newsClone as HTMLElement).querySelector('.news__meta-date')!.textContent = item.publishedAt
+                newsClone.querySelector('.news__meta-author')!.textContent = item.author || item.source.name;
+                newsClone.querySelector('.news__meta-date')!.textContent = item.publishedAt
                     .slice(0, 10)
                     .split('-')
                     .reverse()
                     .join('-');
     
-                (newsClone as HTMLElement).querySelector('.news__description-title')!.textContent = item.title;
-                (newsClone as HTMLElement).querySelector('.news__description-source')!.textContent = item.source.name;
-                (newsClone as HTMLElement).querySelector('.news__description-content')!.textContent = item.description;
-                (newsClone as HTMLElement).querySelector('.news__read-more a')!.setAttribute('href', item.url);
+                newsClone.querySelector('.news__description-title')!.textContent = item.title;
+                newsClone.querySelector('.news__description-source')!.textContent = item.source.name;
+                newsClone.querySelector('.news__description-content')!.textContent = item.description;
+                newsClone.querySelector('.news__read-more a')!.setAttribute('href', item.url);
     
                 fragment.append(newsClone);
             });
