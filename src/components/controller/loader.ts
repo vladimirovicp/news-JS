@@ -1,24 +1,27 @@
 import { Endpoint, Options, Callback } from '../miantypes';
 
 enum HttpMethod {
-    GET = 'GET'
+    GET = 'GET',
 }
 
 class Loader {
     // private baseLink: string;
-    // private options: Pick<Options, 'apiKey'>;  
+    // private options: Pick<Options, 'apiKey'>;
 
-    constructor(private baseLink: string, private options: Pick<Options, 'apiKey'>) {
+    constructor(
+        private baseLink: string,
+        private options: Pick<Options, 'apiKey'>
+    ) {
         // this.baseLink = baseLink;
         // this.options = options;
     }
 
     public getResp(
-        { endpoint, options = {} } : { endpoint: Endpoint; options?: Partial<Options> },
+        { endpoint, options = {} }: { endpoint: Endpoint; options?: Partial<Options> },
         callback: Callback = () => {
             console.error('No callback for GET response');
         }
-    ):void {
+    ): void {
         this.load(HttpMethod.GET, endpoint, callback, options);
     }
 
@@ -31,22 +34,18 @@ class Loader {
         return res;
     }
 
-    private makeUrl(options: Partial<Options>, endpoint: Endpoint):string {
+    private makeUrl(options: Partial<Options>, endpoint: Endpoint): string {
         const urlOptions: Partial<Options> = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
         Object.keys(urlOptions).forEach((key: string): void => {
-            url += `${key}=${urlOptions[key]}&`;
+            url += `${key}=${urlOptions[key as keyof typeof urlOptions]}&`;
         });
 
         return url.slice(0, -1);
     }
 
-    private load(
-        method: HttpMethod, 
-        endpoint: Endpoint, 
-        callback: Callback, 
-        options: Partial<Options> = {}) {
+    private load(method: HttpMethod, endpoint: Endpoint, callback: Callback, options: Partial<Options> = {}) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())

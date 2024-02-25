@@ -15,12 +15,12 @@ const baseConfig = {
             },
             {
                 test: /\.ts$/i,
-                use: 'ts-loader'
+                use: 'ts-loader',
             },
         ],
     },
     resolve: {
-        extensions: ['.ts','.js'],
+        extensions: ['.ts', '.js'],
     },
     output: {
         filename: 'index.js',

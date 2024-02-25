@@ -8,14 +8,28 @@ interface NewsItem {
     title: string;
     url: string;
     urlToImage: string | null;
-};
+}
 
 interface NewsItemData extends NewsItem {
     totalResults: number;
     articles: Array<NewsItem>;
 }
 
-type Callback = <T>(data: T) => void;   
+type NewsSource = {
+    id: string;
+    name: string;
+    description: string;
+    url: string;
+    category: string;
+    language: string;
+    country: string;
+};
+
+interface SourcesData extends NewsItemData {
+    sources: Array<NewsSource>;
+}
+
+type Callback = <T>(data: T) => void;
 //в TypeScript использует обобщенные типы для определения функции с параметром типа T
 // type Callback - это объявление пользовательского типа под названием Callback.
 // <T> - это обобщенный тип, который говорит TypeScript, что функция Callback принимает один параметр обобщенного типа T.
@@ -32,10 +46,4 @@ type Options = {
     sources: string;
 };
 
-export {
-    NewsItem,
-    NewsItemData,
-    Endpoint,
-    Options,
-    Callback,
-}
+export { NewsItem, NewsItemData, Endpoint, Options, SourcesData, NewsSource, Callback };

@@ -31,7 +31,6 @@ class AppController extends AppLoader {
                             },
                             callback
                         );
-
                     }
                 }
                 return;
