@@ -1,19 +1,18 @@
 import AppLoader from './appLoader';
 
-//import { Callback } from '../miantypes';
+import { Endpoint, Callback } from '../miantypes';
 
 class AppController extends AppLoader {
-    public getSources(callback: () => void) {
+    public getSources(callback: Callback): void {
         super.getResp(
             {
-                endpoint: 'sources',
+                endpoint: Endpoint.Sources,
             },
             callback
         );
     }
 
-    getNews(e: Event, callback: () => void) {
-        console.log(callback)
+    getNews(e: Event, callback: Callback): void {
         let target = e.target as HTMLElement;
         const newsContainer = e.currentTarget as HTMLElement;
 
@@ -25,7 +24,7 @@ class AppController extends AppLoader {
                         newsContainer.setAttribute('data-source', sourceId);
                         super.getResp(
                             {
-                                endpoint: 'everything',
+                                endpoint: Endpoint.Everything,
                                 options: {
                                     sources: sourceId,
                                 },
