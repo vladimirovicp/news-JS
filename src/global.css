@@ -2,6 +2,10 @@ body {
     color: #fff;
     background: #17181c;
     font-family: sans-serif;
+
+    min-width: 320px;
+    max-width: 1920px;
+    margin: 0 auto;
 }
 
 header {
