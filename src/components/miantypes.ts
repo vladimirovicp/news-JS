@@ -10,6 +10,11 @@ interface NewsItem {
     urlToImage: string | null;
 };
 
+interface NewsItemData extends NewsItem {
+    totalResults: number;
+    articles: Array<NewsItem>;
+}
+
 type Callback = <T>(data: T) => void;   
 //в TypeScript использует обобщенные типы для определения функции с параметром типа T
 // type Callback - это объявление пользовательского типа под названием Callback.
@@ -29,6 +34,7 @@ type Options = {
 
 export {
     NewsItem,
+    NewsItemData,
     Endpoint,
     Options,
     Callback,
