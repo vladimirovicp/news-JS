@@ -4,20 +4,36 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="icon" type="image/x-icon" href="favicon.ico" />
         <title>NewsPortal</title>
     </head>
     <body>
         <header>
             <h1>News Portal</h1>
+            <nav>
+                <input type="checkbox" class="menu__checkbox" id="menu____checkbox" name="menu__checkbox">
+                <label class="open-close" for="menu____checkbox">open / close nemu</label>
+                <div class="sources buttons"></div>
+            </nav>
         </header>
         <main>
-            <div class="sources buttons"></div>
+            <!-- <div class="sources buttons"></div> -->
             <div class="news"></div>
         </main>
         <footer>
-            <p class="copyright">
+            <!-- <p class="copyright">
                 Copyright <a href="https://newsapi.org">NewsAPI</a>
-            </p>
+            </p> -->
+
+            <div class="container">
+                <div class="footer-data">
+                    <span>©</span>
+                    <span>Copyright <a href="https://newsapi.org">NewsAPI</a></span>
+                    <span class="github"><a href="https://github.com/vladimirovicp" target="_blank">github</a></span>
+                </div>
+                <div><a href="https://rs.school/js/" target="_blank" class="logo-rs">Rolling Scopes School</a></div>
+            </div>  
+
         </footer>
 
         <template id="sourceItemTemp">
